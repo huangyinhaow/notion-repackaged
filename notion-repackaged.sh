@@ -4,7 +4,7 @@
 #
 
 # Version of the original Notion App installer to repackage
-export NOTION_VERSION=2.1.14
+export NOTION_VERSION=2.0.42
 
 # Revision of the current version
 export NOTION_REPACKAGED_REVISION=1
