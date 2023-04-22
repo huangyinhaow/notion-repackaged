@@ -11,6 +11,6 @@ export NOTION_DOWNLOAD_URL="https://desktop-release.notion-static.com/Notion%20S
 export NOTION_DOWNLOADED_NAME="Notion-${NOTION_VERSION}.exe"
 
 log "Downloading Notion Windows package..."
-curl "${NOTION_DOWNLOAD_URL}" --output "${NOTION_DOWNLOADED_NAME}
+curl "${NOTION_DOWNLOAD_URL}" --output "${NOTION_DOWNLOADED_NAME}"
 
 popd > /dev/null
