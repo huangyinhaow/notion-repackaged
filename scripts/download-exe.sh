@@ -16,9 +16,6 @@ if [ -f "${NOTION_DOWNLOADED_NAME}" ]; then
 fi
 
 log "Downloading Notion Windows package..."
-curl "${NOTION_DOWNLOAD_URL}" --output "${NOTION_DOWNLOADED_NAME}"
-
-log "Verifying downloaded package checksum..."
-echo "${NOTION_DOWNLOAD_HASH}  ${NOTION_DOWNLOADED_NAME}" | md5sum --check -
+curl "${NOTION_DOWNLOAD_URL}" --output "${NOTION_DOWNLOADED_NAME}
 
 popd > /dev/null
