@@ -117,19 +117,13 @@ jobs:
       NOTION_REPACKAGED_REVISION: ${{ needs.preload-variables.outputs.notion_repackaged_revision }}
     strategy:
       matrix:
-        target: [windows, linux, macos]
+        target: [windows]
         edition: [vanilla, enhanced]
         include:
           - target: windows
             os: windows-latest
-          - target: linux
-            os: ubuntu-latest
-          - target: macos
-            os: macos-latest
         exclude:
           - target: windows
-            edition: vanilla
-          - target: macos
             edition: vanilla
     steps:
       - uses: actions/checkout@v2
@@ -160,20 +154,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NOTION_REPACKAGED_EDITION: ${{ matrix.edition }}
-        run: npx electron-builder --${{ matrix.target }} -c ../electron-builder.js
+        run: npx electron-builder -w --arm64 -c ../electron-builder.js
       - name: Print packages md5 checksums
         working-directory: ${{ matrix.edition }}-src
         run: find ./dist/ -maxdepth 1 -type f -exec openssl md5 {} +
         shell: bash
-  cleanup:
-    name: Cleanup artifacts
-    if: always()
-    needs: [build-app]
-    strategy:
-      matrix:
-        edition: [vanilla, enhanced]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: geekyeggo/delete-artifact@v1
-        with:
-          name: '${{ matrix.edition }}-sources'
