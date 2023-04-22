@@ -116,7 +116,6 @@ jobs:
     env:
       NOTION_VERSION: ${{ needs.preload-variables.outputs.notion_version }}
       NOTION_REPACKAGED_REVISION: ${{ needs.preload-variables.outputs.notion_repackaged_revision }}
-      NOTION_ELECTRON_VERSION: ${{ needs.preload-variables.outputs.notion_electron_version }}
     strategy:
       matrix:
         target: [windows, linux, macos]
@@ -162,7 +161,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NOTION_REPACKAGED_EDITION: ${{ matrix.edition }}
-        run: npx electron-builder --${{ matrix.target }} -c ../electron-builder.js
+        run: npx electron-builder --${{ matrix.target }} --arm64 -c ../electron-builder.js
       - name: Print packages md5 checksums
         working-directory: ${{ matrix.edition }}-src
         run: find ./dist/ -maxdepth 1 -type f -exec openssl md5 {} +
